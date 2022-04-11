@@ -1,5 +1,9 @@
 package Autopark;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Objects;
+
 public class Vehicle {
     VehicleType type;
     String modelName;
@@ -92,13 +96,13 @@ public class Vehicle {
     public double getCalcTaxPerMonth(){
         VehicleType vehicleType = new VehicleType();
         double GetCalcTaxPerMonth = getWeight() * 0.0013 + vehicleType.taxCoefficient * 30 + 5;
-        return GetCalcTaxPerMonth;
+        return new BigDecimal(GetCalcTaxPerMonth).setScale(2, RoundingMode.HALF_EVEN).doubleValue();
     }
 
     @Override
     public String toString() {
         return type + "," + modelName + "," + registrationNumber + "," + weight + "," + manufactureYear + ","
-                + mileage + "," + color + "," + volumeTank + getCalcTaxPerMonth();
+                + mileage + "," + color + "," + volumeTank + "," + getCalcTaxPerMonth();
 
     }
 
@@ -106,28 +110,38 @@ public class Vehicle {
         System.out.println(this);
     }
 
-    public int compareTo(Object secondObj){
-        Vehicle secondVechicle = (Vehicle)secondObj;
-        if(getCalcTaxPerMonth() < secondVechicle.getCalcTaxPerMonth()){
+    public int compareTo(Vehicle obj){
+        if (manufactureYear > obj.manufactureYear) {
+            return 1;
+        }
+        else    if (manufactureYear < obj.manufactureYear) {
             return -1;
         }
-        else{}
+                else {
+                    if (mileage > obj.mileage) {
+                        return 1;
+                    }
+                    else if (mileage < obj.mileage) {
+                        return -1;
+                    }
+                }
         return 0;
     }
-}
 
-enum Color{
-    Red,
-    White,
-    Blue,
-    Grey,
-    Black,
-    Green,
-    Yellow,
-    Gray;
 
-    public String getColor() {
-        return name();
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return type.equals(vehicle.type) && modelName.equals(vehicle.modelName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, modelName);
     }
 }
+
+
 
