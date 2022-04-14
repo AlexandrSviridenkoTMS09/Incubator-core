@@ -35,8 +35,9 @@ public class VehicleType {
     @Override
     public String toString() {
         return
-                "typeName=" + typeName + "\n" +
-                "taxCoefficient=" + taxCoefficient;
+               /* "typeName=" + typeName + "\n" +
+                "taxCoefficient=" + taxCoefficient;*/
+        typeName + "," + taxCoefficient;
     }
 
     public String getString(){
