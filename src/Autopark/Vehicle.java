@@ -4,14 +4,17 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Objects;
 
+import Autopark.Color;
+import Autopark.VehicleType;
+
 import static Autopark.level3.TechnicalSpecialist.*;
 
 public class Vehicle {
-    private /*final*/ VehicleType type;
-    private /*final*/  String modelName;
+    private VehicleType type;
+    private String modelName;
     private String registrationNumber;
     private int weight;
-    private /*final*/  int manufactureYear;
+    private int manufactureYear;
     private int mileage;
     private Color color;
     private int volumeTank;
@@ -19,14 +22,14 @@ public class Vehicle {
     public Vehicle(VehicleType type, String modelName, String registrationNumber, int weight, int manufactureYear,
                    int mileage, Color color, int volumeTank) {
             if(!validateVehicleType(type)){
-                this.type = "type name"; //как тут обойти?
+                this.type = null;
             }
             else{
                 this.type = type;
             }
 
             if(!validateModelName(modelName)){
-                this.modelName = "mode name";
+                this.modelName = null;
             }
             else{
                 this.modelName = modelName;
@@ -36,7 +39,7 @@ public class Vehicle {
             this.weight = weight;
 
             if(!validateManufactureYear(manufactureYear)){
-                this.manufactureYear = "number Year";
+                this.manufactureYear = 0;
             }
             else{
                 this.manufactureYear = manufactureYear;
@@ -55,19 +58,9 @@ public class Vehicle {
         return type;
     }
 
-    /*public void setType(VehicleType type) {
-        if(validateVehicleType(type))
-        this.type = type;
-    }*/
-
     public String getModelName() {
         return modelName;
     }
-
-    /*public void setModelName(String modelName) {
-        if(validateModelName(modelName))
-        this.modelName = modelName;
-    }*/
 
     public String getRegistrationNumber() {
         return registrationNumber;
@@ -92,11 +85,6 @@ public class Vehicle {
     public int getManufactureYear() {
         return manufactureYear;
     }
-
-    /*public void setManufactureYear(int manufactureYear) {
-        if(validateManufactureYear(manufactureYear))
-        this.manufactureYear = manufactureYear;
-    }*/
 
     public int getMileage() {
         return mileage;
